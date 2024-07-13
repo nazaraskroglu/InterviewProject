@@ -28,7 +28,7 @@ class CompanyService
         $this->companyRepository->delete($id);
     }
 
-    public function listCompanies() {
-        return $this->companyRepository->list();
+    public function listCompanies($filters = []){
+        return $this->companyRepository->list($filters);
     }
 }

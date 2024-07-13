@@ -8,5 +8,5 @@ interface ICompanyRepository
     public function get($id);
     public function update(array $data, $id);
     public function delete($id);
-    public function list();
+    public function list($filters = []);
 }

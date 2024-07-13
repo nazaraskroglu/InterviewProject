@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CompanyCreate;
 use App\Http\Requests\CompanyUpdate;
 use App\Services\CompanyService;
+use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
@@ -55,10 +56,13 @@ class CompanyController extends Controller
         }
     }
 
-    public function list() {
+    public function list(Request $request) {
         try {
-            $companies = $this->companyService->listCompanies();
-
+            if ($request->has('company_name')) {
+                $companies = $this->companyService->listCompanies(['company_name' => $request->company_name]);
+            } else {
+                $companies = $this->companyService->listCompanies();
+            }
             return response()->json(['status' => true, 'data' => $companies], 200);
         } catch (\Exception $e) {
             return response()->json(['status' => false, 'message' => $e->getMessage()], 500);

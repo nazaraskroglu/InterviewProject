@@ -24,7 +24,10 @@ class CompanyRepository implements ICompanyRepository {
         $company->delete();
     }
 
-    public function list() {
-        return Company::all();
+    public function list($filters = []) {
+        $query = Company::query();
+        if (isset($filters['company_name'])) {
+            $query->where('company_name', 'like', '%' . $filters['company_name'] . '%');
+        } return $query->get();
     }
 }
